@@ -54,8 +54,14 @@ def mapForkedProtocol(prot):
 
     return protocol
 
-
 def load_annotations():
+    for value in range(5):
+        doc = {
+            "name":value
+        }
+        yield doc
+
+def load_annotations_prod():
     r = requests.get(api_url)
     if r.status_code == 200:
         data = json.loads(r.text)
