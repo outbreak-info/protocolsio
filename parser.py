@@ -8,9 +8,9 @@ logging = config.logger
 api_url = "https://www.protocols.io/api/v3/groups/coronavirus-method-development-community/protocols?page_id=1&page_size=1000&categories=0&filter=group_protocols&order_field=publish_date"
 
 def getAdditionalInfoAbout(uri):
-    second_url= "https://go.protocols.io/api/v1/protocols/"+uri+
-    "?fields[]=authors&fields[]=doi&fields[]=creator&fields[]=published_on&fields[]=description"+
-    "&fields[]=link&fields[]=created_on&fields[]=last_modified&fields[]=fork_id&fields[]=fork_info&fields[]=protocol_name&fields[]=materials_text&fields[]=groups&fields[]=keywords"
+    second_url= "https://go.protocols.io/api/v1/protocols/"+uri
+    +"?fields[]=authors&fields[]=doi&fields[]=creator&fields[]=published_on&fields[]=description"
+    +"&fields[]=link&fields[]=created_on&fields[]=last_modified&fields[]=fork_id&fields[]=fork_info&fields[]=protocol_name&fields[]=materials_text&fields[]=groups&fields[]=keywords"
     r = requests.get(second_url)
     if r.status_code == 200:
         data = json.loads(r.text)
