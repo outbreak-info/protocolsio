@@ -54,14 +54,8 @@ def mapForkedProtocol(prot):
 
     return protocol
 
-def load_annotations():
-    for value in range(5):
-        doc = {
-            "name":value
-        }
-        yield doc
 
-def load_annotations_prod():
+def load_annotations():
     r = requests.get(api_url)
     if r.status_code == 200:
         data = json.loads(r.text)
@@ -69,7 +63,7 @@ def load_annotations_prod():
         logging.info('TOTAL OK')
     else:
         logging.info('NEEDS PAGINATION')
-    for rec in data['items']:
+    for rec in enumerate(data['items']):
         protocol={
             "@context": {
                 "schema":"http://schema.org/",
