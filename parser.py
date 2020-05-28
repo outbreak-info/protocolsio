@@ -12,7 +12,7 @@ def getAdditionalInfoAbout(uri):
     r = requests.get(second_url)
     if r.status_code == 200:
         data = json.loads(r.text)
-        yield data['protocol']
+        return data['protocol']
 
 def mapForkedProtocol(prot):
     protocol={
@@ -52,17 +52,17 @@ def mapForkedProtocol(prot):
     for key in list(protocol):
             if not protocol.get(key):del protocol[key]
 
-    yield protocol
+    return protocol
 
 
 def load_annotations():
     r = requests.get(api_url)
     if r.status_code == 200:
         data = json.loads(r.text)
-        if data["total"] == len(data["items"]):
-            logging.info('TOTAL OK')
-        else:
-            logging.info('NEEDS PAGINATION')
+    if data["total"] == len(data["items"]):
+        logging.info('TOTAL OK')
+    else:
+        logging.info('NEEDS PAGINATION')
     for rec in data['items']:
         protocol={
             "@context": {
