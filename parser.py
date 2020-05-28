@@ -24,7 +24,6 @@ def mapForkedProtocol(protocol):
             "keywords":[],
             "author":[],
             "funding":[],
-            "publicationType":[],
             "isBasedOn":[]
         }
     publication["_id"] = f"protocolsio{protocol['id']}"
@@ -74,7 +73,6 @@ def load_annotations():
             "keywords":[],
             "author":[],
             "funding":[],
-            "publicationType":[],
             "isBasedOn":[]
         }
         publication["_id"] = f"protocolsio{rec['id']}"
