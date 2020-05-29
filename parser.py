@@ -66,7 +66,8 @@ def getDocs():
     # else:
     #     logging.info('Parser for Protocols.io needs pagination')
         logging.info("Starting Loop...")
-        for i,rec in enumerate(data['items']):
+        records = data["items"]
+        for i,rec in enumerate(records):
             logging.info("progress {} of {} docs".format(i,totalDocs))
             protocol={
                 "@context": {
