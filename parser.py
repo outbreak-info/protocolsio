@@ -56,6 +56,7 @@ def mapForkedProtocol(prot):
 
 
 def getDocs():
+    docs =[]
     r = requests.get(api_url)
     if r.status_code == 200:
         data = json.loads(r.text)
@@ -139,10 +140,14 @@ def getDocs():
         for key in list(protocol):
             if not protocol.get(key):del protocol[key]
         logging.info(f"doc processed with id {rec['id']}")
-        yield protocol
+        # yield protocol
+        docs.append(protocol)
+
+    logging.info(f"total docs processed {len(docs)}")
+    return docs
 
 def load_annotations():
-    docs = list(getDocs())
+    docs = getDocs()
     logging.info(f'Got {len(docs)} docs')
     if docs:
         for doc in docs:
