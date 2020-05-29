@@ -143,6 +143,7 @@ def getDocs():
 
 def load_annotations():
     docs = getDocs()
+    logging.info('Got %s docs',len(docs))
     if docs:
         for doc in docs:
             yield doc

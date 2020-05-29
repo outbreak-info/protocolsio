@@ -7,7 +7,7 @@ from config import DATA_ARCHIVE_ROOT
 import biothings.hub.dataload.dumper
 
 
-class ProtocolsDumper(biothings.hub.dataload.dumper.DummyDumper):
+class PDumper(biothings.hub.dataload.dumper.DummyDumper):
 
     SRC_NAME = "protocolsio"
     __metadata__ = {

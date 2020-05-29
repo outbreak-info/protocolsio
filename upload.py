@@ -16,7 +16,7 @@ except ImportError:
     from .parser import load_annotations as parser_func
 
 
-class ProtocolsUploader(biothings.hub.dataload.uploader.BaseSourceUploader):
+class PUploader(biothings.hub.dataload.uploader.BaseSourceUploader):
 
     main_source="protocolsio"
     name = "protocolsio"
@@ -36,7 +36,8 @@ class ProtocolsUploader(biothings.hub.dataload.uploader.BaseSourceUploader):
     storage_class = biothings.hub.dataload.storage.BasicStorage
 
     def load_data(self, data_folder):
-        self.logger.info("No data to load from file for protocolsio")
+        if not data_folder:
+            self.logger.info("No data file for protocolsio")
         return parser_func()
 
     @classmethod

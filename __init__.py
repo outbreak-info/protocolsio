@@ -1,2 +1,2 @@
-from .dump import ProtocolsDumper
-from .upload import ProtocolsUploader
+from .dump import PDumper
+from .upload import PUploader
