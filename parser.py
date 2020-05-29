@@ -59,11 +59,13 @@ def getDocs():
     r = requests.get(api_url)
     if r.status_code == 200:
         data = json.loads(r.text)
-    if data["total"] == len(data["items"]):
-        logging.info('TOTAL OK')
+    totalDocs = len(data["items"])
+    if data["total"] == totalDocs:
+        logging.info('Total docs matches total results')
     else:
-        logging.info('NEEDS PAGINATION')
-    for rec in data['items']:
+        logging.info('Parser for Protocols.io needs pagination')
+    for i,rec in data['items']:
+        logging.info("progress {} of {} docs".format(i,totalDocs))
         protocol={
             "@context": {
                 "schema":"http://schema.org/",
@@ -136,7 +138,7 @@ def getDocs():
         #cleanup doc of empty vals
         for key in list(protocol):
             if not protocol.get(key):del protocol[key]
-
+        logging.info('doc processed with id %s',rec['id'])
         yield protocol
 
 def load_annotations():
