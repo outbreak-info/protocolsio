@@ -64,7 +64,7 @@ def getDocs():
     #     logging.info('Total docs matches total results')
     # else:
     #     logging.info('Parser for Protocols.io needs pagination')
-    for i,rec in data['items']:
+    for i,rec in enumerate(data['items']):
         logging.info("progress {} of {} docs".format(i,totalDocs))
         protocol={
             "@context": {
@@ -138,12 +138,12 @@ def getDocs():
         #cleanup doc of empty vals
         for key in list(protocol):
             if not protocol.get(key):del protocol[key]
-        logging.info('doc processed with id %s',rec['id'])
+        logging.info(f"doc processed with id {rec['id']}")
         yield protocol
 
 def load_annotations():
     docs = list(getDocs())
-    logging.info('Got %s docs',len(docs))
+    logging.info(f'Got {len(docs)} docs')
     if docs:
         for doc in docs:
             yield doc
