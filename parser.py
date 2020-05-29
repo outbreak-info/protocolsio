@@ -60,17 +60,82 @@ def getDocs():
     r = requests.get(api_url)
     if r.status_code == 200:
         data = json.loads(r.text)
-        totalDocs = len(data["items"])
-    # if data["total"] == totalDocs:
-    #     logging.info('Total docs matches total results')
-    # else:
-    #     logging.info('Parser for Protocols.io needs pagination')
-        logging.info("Starting Loop...")
-        records = data["items"]
-        for i,rec in enumerate(records):
-            logging.info("progress {} of {} docs".format(i,totalDocs))
-            protocol = rec
-            docs.append(protocol)
+    for rec in data["items"]:
+        protocol={
+            "@context": {
+                "schema":"http://schema.org/",
+                "outbreak":"https://discovery.biothings.io/view/outbreak/",
+            },
+            "@type":'Protocol',
+            "keywords":[],
+            "author":[],
+            "funding":[],
+            "isBasedOn":[]
+        }
+        protocol["_id"] = f"protocolsio{rec['id']}"
+        protocol["doi"] = rec.get("doi", None)
+        uri = rec.get("uri", None)
+        if uri:
+            protocol["url"] = "https://www.protocols.io/view/"+uri
+            add_info = getAdditionalInfoAbout(uri)
+            desc = add_info.get("description", None)
+            if desc:
+                d = json.loads(desc)
+                desc_text=''
+                if d['blocks']:
+                    for item in d['blocks']:
+                        desc_text += item['text']
+                protocol["description"] = desc_text
+
+            if add_info.get("fork_info", None):
+                forkProtocol= mapForkedProtocol(add_info.get("fork_info"))
+                protocol["isBasedOn"].append(forkProtocol)
+
+        website = {"@type":"schema:WebSite"}
+
+        name = "Protocols.io"
+        website['name'] = name
+        website['url'] = "https://www.protocols.io/"
+        website['curationDate'] = datetime.date.today().strftime("%Y-%m-%d")
+
+        protocol["curatedBy"] = website
+
+        protocol["name"] = rec.get("title", None)
+        protocol["identifier"] = rec['doi'].split('/', 1)[-1]
+
+        dp = rec.get("published_on", None)
+        if dp:
+            d = time.strftime("%Y-%m-%d", time.localtime(dp))
+            protocol["datePublished"] = d
+
+        authors = rec.get("authors", [])
+        if len(authors):
+            for auth in authors:
+                author = {"@type":"outbreak:Person"}
+
+                full_name = auth.get("name", None)
+                if full_name is not None:
+                    author["name"] = full_name
+                    author["givenName"] = full_name.split(' ', 1)[0]
+                    author["familyName"] = full_name.split(' ', 1)[-1]
+
+                institutions = auth.get("affiliation", None)
+                if institutions is not None:
+                    organization = {"@type":"outbreak:Organization"}
+                    author["affiliation"] =[]
+                    organization["name"] = auth["affiliation"]
+                    if organization["name"] is not None:
+                        author["affiliation"].append(organization)
+                for key in author:
+                    if author[key] is None: del author[key]
+                protocol["author"].append(author)
+
+        #cleanup doc of empty vals
+        for key in list(protocol):
+            if not protocol.get(key):del protocol[key]
+        logging.info(f"doc processed with id {rec['id']}")
+        # yield protocol
+        docs.append(protocol)
 
     logging.info(f"total docs processed {len(docs)}")
     return docs
