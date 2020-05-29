@@ -55,7 +55,7 @@ def mapForkedProtocol(prot):
     return protocol
 
 
-def load_annotations():
+def getDocs():
     r = requests.get(api_url)
     if r.status_code == 200:
         data = json.loads(r.text)
@@ -138,3 +138,11 @@ def load_annotations():
             if not protocol.get(key):del protocol[key]
 
         yield protocol
+
+def load_annotations():
+    docs = getDocs()
+    if docs:
+        for doc in docs:
+            yield doc
+    else:
+        logging.info('Failed to load docs for Protocols.io')
