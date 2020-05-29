@@ -28,7 +28,7 @@ class ProtocolsUploader(biothings.hub.dataload.uploader.BaseSourceUploader):
             },
             "code":{
                 "branch": "master",
-                "repo": "https://github.com/marcodarko/biorxiv.git"
+                "repo": "https://github.com/marcodarko/protocolsio.git"
             }
         }
     }
