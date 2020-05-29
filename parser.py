@@ -60,10 +60,10 @@ def getDocs():
     if r.status_code == 200:
         data = json.loads(r.text)
     totalDocs = len(data["items"])
-    if data["total"] == totalDocs:
-        logging.info('Total docs matches total results')
-    else:
-        logging.info('Parser for Protocols.io needs pagination')
+    # if data["total"] == totalDocs:
+    #     logging.info('Total docs matches total results')
+    # else:
+    #     logging.info('Parser for Protocols.io needs pagination')
     for i,rec in data['items']:
         logging.info("progress {} of {} docs".format(i,totalDocs))
         protocol={
