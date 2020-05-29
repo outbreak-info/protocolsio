@@ -46,7 +46,7 @@ def mapForkedProtocol(prot):
     if dp:
         d = time.strftime("%Y-%m-%d", time.localtime(dp))
         prot_obj["datePublished"] = d
-    uri = protocol.get("uri", None)
+    uri = prot_obj.get("uri", None)
     if uri:
         prot_obj["url"] = "https://www.protocols.io/view/"+uri
     # cleanup
