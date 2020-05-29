@@ -58,7 +58,8 @@ def load_annotations():
     r = requests.get(api_url)
     if r.status_code == 200:
         data = json.loads(r.text)
-    for rec in data["items"]:
+    for item in data["items"]:
+        rec = item
         protocol={
             "@context": {
                 "schema":"http://schema.org/",
