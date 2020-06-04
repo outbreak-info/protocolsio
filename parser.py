@@ -100,7 +100,11 @@ def load_annotations():
 
         protocol["curatedBy"] = website
 
-        protocol["name"] = rec.get("title", None)
+        try:
+            protocol["name"] = rec.get("title", None)
+        except:
+            logging.info("name not found for record")
+            pass
 
         doi = rec.get("doi", None)
 
