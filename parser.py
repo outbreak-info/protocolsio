@@ -29,8 +29,9 @@ def mapForkedProtocol(prot):
         }
     prot_obj["_id"] = f"protocolsio{prot['id']}"
     prot_obj["name"] = prot.get("title", None)
+
     doi = prot.get("doi", None)
-    if doi:
+    if doi is not None:
         prot_obj["doi"] = doi
         prot_obj["identifier"] = doi.split('/', 1)[-1]
 
