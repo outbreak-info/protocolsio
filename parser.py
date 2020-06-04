@@ -100,7 +100,8 @@ def load_annotations():
         protocol["curatedBy"] = website
 
         protocol["name"] = rec.get("title", None)
-        protocol["identifier"] = rec['doi'].split('/', 1)[-1]
+        if rec['doi']:
+            protocol["identifier"] = rec['doi'].split('/', 1)[-1]
 
         dp = rec.get("published_on", None)
         if dp:
