@@ -19,7 +19,8 @@ class PDumper(biothings.hub.dataload.dumper.DummyDumper):
             "code":{
                 "branch": "master",
                 "repo": "https://github.com/marcodarko/protocolsio.git"
-            }
+            },
+            "license": "https://www.protocols.io/terms#tos1"
         }
     }
     # override in subclass accordingly

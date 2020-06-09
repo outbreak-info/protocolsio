@@ -29,7 +29,8 @@ class PUploader(biothings.hub.dataload.uploader.BaseSourceUploader):
             "code":{
                 "branch": "master",
                 "repo": "https://github.com/marcodarko/protocolsio.git"
-            }
+            },
+            "license": "https://www.protocols.io/terms#tos1"
         }
     }
     idconverter = None
