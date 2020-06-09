@@ -30,7 +30,8 @@ class PUploader(biothings.hub.dataload.uploader.BaseSourceUploader):
                 "branch": "master",
                 "repo": "https://github.com/marcodarko/protocolsio.git"
             },
-            "license": "https://www.protocols.io/terms#tos1"
+            "license": "https://www.protocols.io/terms#tos1",
+            "url" : "https://www.protocols.io/groups/coronavirus-method-development-community/publications"
         }
     }
     idconverter = None
