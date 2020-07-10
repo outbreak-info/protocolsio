@@ -26,3 +26,5 @@ class PDumper(biothings.hub.dataload.dumper.DummyDumper):
     }
     # override in subclass accordingly
     SRC_ROOT_FOLDER = os.path.join(DATA_ARCHIVE_ROOT, SRC_NAME)
+
+    SCHEDULE = "20 20 * * *"
